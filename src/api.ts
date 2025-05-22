@@ -215,6 +215,10 @@ export type ReactNativeInterface = {
   postMessage: (message: string) => void;
 };
 
+export type FlutterInterface = {
+  postMessage: (message: string) => void;
+};
+
 declare global {
   interface Window {
     SnowplowWebInterface?: SnowplowWebInterface;
@@ -227,4 +231,6 @@ declare global {
     };
     ReactNativeWebView?: ReactNativeInterface;
   }
+
+  FlutterSnowplowChannel?: FlutterInterface;
 }

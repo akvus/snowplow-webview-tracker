@@ -21,8 +21,11 @@ import {
   ScreenView,
   SelfDescribingJson,
   ReactNativeInterface,
+  FlutterInterface,
   WebViewEvent,
 } from './api';
+
+declare var FlutterSnowplowChannel: FlutterInterface | undefined;
 
 function withAndroidInterface(callback: (_: SnowplowWebInterface) => void) {
   if (window.SnowplowWebInterface) {
@@ -59,6 +62,12 @@ function withIOSInterfaceV2(callback: (_: WebkitMessageHandlerV2) => void) {
 function withReactNativeInterface(callback: (_: ReactNativeInterface) => void) {
   if (window.ReactNativeWebView) {
     callback(window.ReactNativeWebView);
+  }
+}
+
+function withFlutterInterface(callback: (_: FlutterInterface) => void) {
+  if (FlutterSnowplowChannel) {
+    callback(FlutterSnowplowChannel);
   }
 }
 
@@ -147,6 +156,10 @@ export function trackWebViewEvent(
   withReactNativeInterface((rnInterface) => {
     rnInterface.postMessage(JSON.stringify(getMessageRN()));
   });
+
+  withFlutterInterface((flutterInterface) => {
+    flutterInterface.postMessage(JSON.stringify(getMessageRN()));
+  });
 }
 
 /**
@@ -185,6 +198,10 @@ export function trackSelfDescribingEvent(
 
   withReactNativeInterface((rnInterface) => {
     rnInterface.postMessage(JSON.stringify(getMessage()));
+  });
+
+  withFlutterInterface((flutterInterface) => {
+    flutterInterface.postMessage(JSON.stringify(getMessage()));
   });
 }
 
@@ -235,6 +252,10 @@ export function trackStructEvent(
   withReactNativeInterface((rnInterface) => {
     rnInterface.postMessage(JSON.stringify(getMessage()));
   });
+
+  withFlutterInterface((flutterInterface) => {
+    flutterInterface.postMessage(JSON.stringify(getMessage()));
+  });
 }
 
 /**
@@ -280,6 +301,10 @@ export function trackPageView(
 
   withReactNativeInterface((rnInterface) => {
     rnInterface.postMessage(JSON.stringify(getMessage()));
+  });
+
+  withFlutterInterface((flutterInterface) => {
+    flutterInterface.postMessage(JSON.stringify(getMessage()));
   });
 }
 
@@ -330,5 +355,9 @@ export function trackScreenView(
 
   withReactNativeInterface((rnInterface) => {
     rnInterface.postMessage(JSON.stringify(getMessage()));
+  });
+
+  withFlutterInterface((flutterInterface) => {
+    flutterInterface.postMessage(JSON.stringify(getMessage()));
   });
 }
