@@ -230,7 +230,6 @@ declare global {
       };
     };
     ReactNativeWebView?: ReactNativeInterface;
+    FlutterSnowplowChannel?: FlutterInterface;
   }
-
-  FlutterSnowplowChannel?: FlutterInterface;
 }
