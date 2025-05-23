@@ -25,8 +25,6 @@ import {
   WebViewEvent,
 } from './api';
 
-declare var FlutterSnowplowChannel: FlutterInterface | undefined;
-
 function withAndroidInterface(callback: (_: SnowplowWebInterface) => void) {
   if (window.SnowplowWebInterface) {
     callback(window.SnowplowWebInterface);
@@ -66,8 +64,8 @@ function withReactNativeInterface(callback: (_: ReactNativeInterface) => void) {
 }
 
 function withFlutterInterface(callback: (_: FlutterInterface) => void) {
-  if (FlutterSnowplowChannel) {
-    callback(FlutterSnowplowChannel);
+  if (window.FlutterSnowplowChannel) {
+    callback(window.FlutterSnowplowChannel);
   }
 }
 
